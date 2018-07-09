@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Recipes Web App</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description"
+	content="Recipes Web app to retrieve data from Rest API">
+<meta name="author" content="Julio Griebeler">
+<link rel="icon" href="favicon.ico">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="album.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script src="recipes.js"></script>
+</head>
+<body ng-app="RecipesApp">
+	<header>
+		<div class="navbar navbar-dark bg-dark box-shadow">
+			<div class="container d-flex justify-content-between">Recipes</div>
+		</div>
+	</header>
+
+	<main role="main">
+	<div class="album py-5 bg-light">
+		<div class="container">
+			<div class="row" ng-controller="Recipe">
+				<div class="col-md-4" ng-repeat="r in recipes">
+					<div class="card mb-4 box-shadow">
+						<img class="card-img-top" data-src="{{r.dishImage}}" alt="{{r.name}}">
+						<div class="card-body">
+							<p class="card-text">
+								Ingredients:
+								<ul>
+									<li ng-repeat="i in r.ingredients">{{ i.quantity }} {{ i.measureType }} {{ i.name }}</li>
+								</ul>
+								Cooking Instructions:
+								<ul>
+									<li ng-repeat="i in r.cookingInstructions">{{ i.position }} {{ i.description }} {{ i.name }}</li>
+								</ul>
+							</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+									<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+								</div>
+								<small class="text-muted">Suitable for {{r.dishSuitableQty}}</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</main>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
