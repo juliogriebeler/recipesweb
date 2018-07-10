@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Recipes Web App</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description"
-	content="Recipes Web app to retrieve data from Rest API">
-<meta name="author" content="Julio Griebeler">
-<link rel="icon" href="favicon.ico">
-<link
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="album.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-<script src="recipes.js"></script>
+	<meta charset="UTF-8">
+	<title>Recipes Web App</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Recipes Web app to retrieve data from Rest API">
+	<meta name="author" content="Julio Griebeler">
+	<link rel="icon" href="favicon.ico">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+	<script src="recipesController.js"></script>
 </head>
 <body ng-app="RecipesApp">
 	<header>
 		<div class="navbar navbar-dark bg-dark box-shadow">
-			<div class="container d-flex justify-content-between">Recipes</div>
+			<div class="container d-flex justify-content-between">
+				<h1>Recipes</h1>
+			</div>
 		</div>
 	</header>
 
-	<main role="main">
+	<main role="main" ng-controller="RecipesController">
 	<div class="album py-5 bg-light">
 		<div class="container">
-			<div class="row" ng-controller="Recipe">
+			<div class="row">
+				<div class="mb-6">
+					<label for="isVegetarian">Show only Veg Recipes</label>
+					<input name="isVegetarian" ng-model="isVegetarian" type="checkbox" ng-change="setOnlyVegetarian()"/>
+				</div>
+				<div class="mb-6">
+					<button class="openAddModal">Add new Recipe</button>
+				</div> 
+			</div>
+			<div class="row">
 				<div class="col-md-4" ng-repeat="r in recipes">
 					<div class="card mb-4 box-shadow">
 						<img class="card-img-top" data-src="{{r.dishImage}}" alt="{{r.name}}">
 						<div class="card-body">
 							<p class="card-text">
-								Ingredients:
+								<strong>Ingredients:</strong>
 								<ul>
 									<li ng-repeat="i in r.ingredients">{{ i.quantity }} {{ i.measureType }} {{ i.name }}</li>
 								</ul>
-								Cooking Instructions:
+								<strong>Cooking Instructions:</strong>
 								<ul>
 									<li ng-repeat="i in r.cookingInstructions">{{ i.position }} {{ i.description }} {{ i.name }}</li>
 								</ul>
@@ -45,9 +50,9 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+									<button type="button" class="openEditModal btn btn-sm btn-outline-secondary">Edit</button>
 								</div>
-								<small class="text-muted">Suitable for {{r.dishSuitableQty}}</small>
+								<small class="text-muted">Suitable for {{ r.dishSuitableQty }}</small>
 							</div>
 						</div>
 					</div>
@@ -58,12 +63,27 @@
 
 	</main>
 
+	<div id="recipesModal" class="modal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Recipes</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="main.js"></script>
 </body>
 </html>
